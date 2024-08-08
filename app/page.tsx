@@ -6,13 +6,15 @@ import { CoffeeOutlined } from '@ant-design/icons'; // Example food-related icon
 import { useState, MouseEvent } from "react";
 import { Button } from "antd";
 
+import { functions, httpsCallable } from '../firebaseConfig'; 
+
 export default function Home() {
   const [inputValue, setInputValue] = useState<string>("");
   const [recipe, setRecipe] = useState<string>("");
   const [error, setError] = useState<string>("")
 
-
-  console.log(recipe);
+  const backendAddress = 'https://generaterecipe-ryk2xzz7ja-uc.a.run.app'
+  console.log("backendAddress: ", backendAddress);
   
   const onSubmit = async (event: MouseEvent) => {
     event.preventDefault();
@@ -20,8 +22,12 @@ export default function Home() {
     setRecipe("");
 
     try {
+
+      // const generateRecipe = httpsCallable(functions, 'generateRecipe');
+      // const response = await generateRecipe(JSON.stringify({ prompt: inputValue }));
+
       const response = await fetch(
-        'http://localhost:3000/generate-recipe',
+        backendAddress,
         {
           method: 'POST',
           headers: {
@@ -39,6 +45,7 @@ export default function Home() {
         const { value, done } = await reader.read();
         if (done) break;
         console.log('Received: ', value);
+        // if value
         setRecipe((prev) => prev + value);
       }
     } catch (error) {
