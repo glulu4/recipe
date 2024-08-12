@@ -226,8 +226,8 @@ export default function Home() {
 
         // Modify the text stream
         const formattedValue = chunk
-          .replace(/###/g, '<br><br>')              // Replace ### with <br>
-          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // Replace **text** with <b>text</b>
+          .replace(/###/g, '<br><br>')              // Replace ### with <br><br>
+          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // Replace **text** with <strong>text</strong>
 
         setRecipe((prev) => prev + formattedValue);
       }
