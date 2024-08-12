@@ -22,6 +22,8 @@ const openai = new OpenAI({
 
 export const generateRecipe = onRequest({cors: true}, async (req, res) => {
   const prompt = req.body.prompt;
+  const systemPrompt = `Do not user markdown formatting, 
+    * or #. Add newlines and bold`;
   console.log("prompt: ", prompt);
   try {
     const response = await openai.chat.completions.create({
@@ -30,6 +32,10 @@ export const generateRecipe = onRequest({cors: true}, async (req, res) => {
         {
           role: "user",
           content: prompt,
+        },
+        {
+          role: "system",
+          content: systemPrompt,
         },
       ],
       stream: true,
